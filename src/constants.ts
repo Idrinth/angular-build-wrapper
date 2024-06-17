@@ -1,1 +1,1 @@
-export const FILE_NAME = '.idrinth-angualr-build-wrapper.json';
+export const FILE_NAME = '.idrinth-angular-build-wrapper.json';
