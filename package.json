@@ -1,0 +1,29 @@
+{
+  "name": "@idrinth/angular-build-wrapper",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "iabw": "index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/cli": "^16.0.0 | ^17.0.0 | ^18.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "@types/node": "^20.14.2",
+    "@angular/cli": "~16.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "engineStrict": true
+}
