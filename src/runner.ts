@@ -5,9 +5,9 @@ import ValueStore from "./value-store";
 import {existsSync} from "node:fs";
 
 export default (values: ValueStore) => {
+  console.log('ng ' + values.passed().join(' '));
   const options = { encoding: 'utf8', env: process.env, cwd: values.cwd };
   if (existsSync(values.cwd + '/node_modules/.bin/ng')) {
-    console.log('ng ' + values.passed().join(' '));
     const child = exec('node node_modules/.bin/ng ' + values.passed().join(' '), options)
       .on('error', (err) => {console.error(err)})
       .on('exit', (code) => {process.exit(code)});
@@ -15,7 +15,6 @@ export default (values: ValueStore) => {
     child.stderr.on('data', (data) => console.error(data));
     return;
   }
-  console.log('ng ' + values.passed().join(' '));
   const child = exec('ng ' + values.passed().join(' '), options)
     .on('error', (err) => {console.error(err)})
     .on('exit', (code) => {process.exit(code)});

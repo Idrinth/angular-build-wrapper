@@ -15,3 +15,14 @@ Do not check in the javascript file, it is regenerated every time an ng command 
 
 - help
 - create: creates the files initially, so you can work with autocompletion
+
+## Variable injection
+
+- command line in kebab-case
+- environment in CONSTANT_CASE
+- specific default in camelCase
+- all default in camelCase
+
+## Default variables
+
+- iabwBuiltTime: `YYYY-MM-DDTHH:mm:ss.sssZ`

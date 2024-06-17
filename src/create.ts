@@ -1,13 +1,15 @@
 import ValueStore from "./value-store";
-import {existsSync, writeFileSync} from "node:fs";
-import {readFileSync} from "fs";
+import {existsSync, writeFileSync, readFileSync} from "node:fs";
+import {camelCase} from "change-case-all";
+import question from "./question";
+import {FILE_NAME} from "./constants";
 
-export default (values: ValueStore) => {
+export default async(values: ValueStore, ask: boolean = false) => {
   const filler = {};
   const types = {};
   for (const key of values.desired) {
-    filler[key] = values.get(key);
-    types[key] = 'string';
+    filler[camelCase(key)] = values.get(key);
+    types[camelCase(key)] = 'string';
   }
   writeFileSync(
     values.cwd + '/src/configuration.d.ts',
@@ -19,18 +21,44 @@ export default (values: ValueStore) => {
     `export default ${JSON.stringify(filler)};`,
     'utf8',
   );
-  if (! existsSync(values.cwd + '/.idrinth-angular-build-wrapper.json')) {
-    writeFileSync(
-      values.cwd + '/.idrinth-angular-build-wrapper.json',
-      JSON.stringify({
-        desired: [],
-        defaults: {
-          all: {},
-          dev: {},
-          build: {},
-          test: {},
+  if (! existsSync(values.cwd + '/' + FILE_NAME)) {
+    const config = {
+      desired: [],
+      defaults: {
+        all: {},
+        serve: {},
+        build: {},
+        test: {},
+      }
+    };
+    if (ask) {
+      while (true) {
+        const value = await question('Enter the camelCase name of a desired configuration value, leave empty to skip: ');
+        if (! value) {
+          break;
         }
-      }, null, 2),
+        config.desired.push(value);
+        const serve = await question('Enter a default value for serve or leave empty to skip: ');
+        if (serve) {
+          config.defaults.serve[value] = serve;
+        }
+        const build = await question('Enter a default value for build or leave empty to skip: ');
+        if (build) {
+          config.defaults.build[value] = build;
+        }
+        const test = await question('Enter a default value for serve or leave empty to skip: ');
+        if (test) {
+          config.defaults.test[value] = test;
+        }
+        const all = await question('Enter a default value for all or leave empty to skip: ');
+        if (all) {
+          config.defaults.all[value] = all;
+        }
+      }
+    }
+    writeFileSync(
+      values.cwd + '/' + FILE_NAME,
+      JSON.stringify(config, null, 2),
       'utf8'
     );
   }

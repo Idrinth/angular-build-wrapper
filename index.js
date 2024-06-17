@@ -17,7 +17,7 @@ switch (values.command) {
     runner(values);
     break;
   case 'create':
-    create(values);
+    create(values, true);
     process.exit(0);
     break;
   case 'help':

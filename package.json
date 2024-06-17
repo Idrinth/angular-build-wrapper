@@ -3,19 +3,25 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepublishOnly": "tsc -p tsconfig.json"
   },
   "bin": {
     "iabw": "index.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "angular",
+    "build",
+    "environment",
+    "configuration"
+  ],
+  "author": "Björn Idrinth Büttner",
   "license": "MIT",
   "peerDependencies": {
     "@angular/cli": "^16.0.0 | ^17.0.0 | ^18.0.0"
   },
   "dependencies": {
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "change-case-all": "^2.1.0"
   },
   "devDependencies": {
     "typescript": "^5.4.5",
