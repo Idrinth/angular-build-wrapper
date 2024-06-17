@@ -13,11 +13,11 @@ switch (values.command) {
   case 'test':
   case 'build':
   case 'serve':
-    create(values);
+    await create(values);
     runner(values);
     break;
   case 'create':
-    create(values, true);
+    await create(values, true);
     process.exit(0);
     break;
   case 'help':
